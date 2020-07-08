@@ -19,15 +19,15 @@ then
 	read -p "Enter what you did from $time_30_mins_ago to $time_20_mins_ago: " task_10_mins_1
 	read -p "Enter what you did from $time_20_mins_ago to $time_10_mins_ago: " task_10_mins_2
 	read -p "Enter what you did from $time_10_mins_ago to $time_0_mins_ago: " task_10_mins_3
-	echo "$time_30_mins_ago to $time_20_mins_ago: $task_10_mins_1" >> $system_date_filename
-	echo "$time_20_mins_ago to $time_10_mins_ago: $task_10_mins_2" >> $system_date_filename
-	echo "$time_10_mins_ago to $time_0_mins_ago: $task_10_mins_3" >> $system_date_filename
+	echo "$time_30_mins_ago to $time_20_mins_ago: $task_10_mins_1" >> "logs/$system_date_filename"
+	echo "$time_20_mins_ago to $time_10_mins_ago: $task_10_mins_2" >> "logs/$system_date_filename"
+	echo "$time_10_mins_ago to $time_0_mins_ago: $task_10_mins_3" >> "logs/$system_date_filename"
 else 
 	echo "Enter data at 30 minute interval"
 	read -p "Enter what you did from $time_30_mins_ago to $time_0_mins_ago: " task_30_mins
-	echo "$time_30_mins_ago to $time_20_mins_ago: $task_30_mins" >> $system_date_filename
-	echo "$time_20_mins_ago to $time_10_mins_ago: $task_30_mins" >> $system_date_filename
-	echo "$time_10_mins_ago to $time_0_mins_ago: $task_30_mins" >> $system_date_filename
+	echo "$time_30_mins_ago to $time_20_mins_ago: $task_30_mins" >> "logs/$system_date_filename"
+	echo "$time_20_mins_ago to $time_10_mins_ago: $task_30_mins" >> "logs/$system_date_filename"
+	echo "$time_10_mins_ago to $time_0_mins_ago: $task_30_mins" >> "logs/$system_date_filename"
 fi
 
-echo -e "" >> $system_date_filename
+echo -e "" >> "logs/$system_date_filename"
