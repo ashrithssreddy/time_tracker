@@ -13,9 +13,6 @@ system_date_filename+=".txt"
 read -p "Duration: " duration
 echo $duration
 
-read -p "Duration: " duration
-echo $duration
-
 if [ $duration == 10 ]
 then 
 	echo "Enter data at 10 minute interval"
