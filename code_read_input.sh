@@ -1,8 +1,6 @@
 #!/bin/bash
-read -p "Enter Message:" message  
-echo $message
 
-read -p "Enter Username:" username  
-echo $username
-
+system_date_filename=$(date '+%Y-%m-%d')
+system_date_filename+=".txt"
+echo "apple a day" >> $system_date_filename
 $SHELL
