@@ -33,4 +33,4 @@ else
 	echo "$time_10_mins_ago to $time_0_mins_ago: $task_30_mins" >> $system_date_filename
 fi
 
-$SHELL
+echo -e "" >> $system_date_filename
