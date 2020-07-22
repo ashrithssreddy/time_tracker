@@ -1,7 +1,7 @@
 #### Objective: Calculate the time wasted in a day #### 
 #### Crawls time tracker log files and counts wasted hours using "wasted" keyword #### 
 
-# Setting up #
+# Setting up
 library("dplyr")
 rm(list=ls()); cat("\014")
 
@@ -46,5 +46,5 @@ for(file in file_names){
 # Format and write final collated dataset
 daily_wasted_hours %>% 
   arrange(desc(calendar_date)) %>% 
-  # mutate(week_id = lubridate::week(calendar_date)) %>% 
+  mutate(week_id = as.integer(strftime(calendar_date, format = "%V"))) %>% 
   openxlsx::write.xlsx("daily_wasted_hours.xlsx")
