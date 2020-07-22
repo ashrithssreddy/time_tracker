@@ -1,5 +1,7 @@
-#### Objective: Calculate the time wasted in a day using "wasted" keyword #### 
+#### Objective: Calculate the time wasted in a day #### 
+#### Crawls time tracker log files and counts wasted hours using "wasted" keyword #### 
 
+# Setting up #
 library("dplyr")
 rm(list=ls()); cat("\014")
 
@@ -11,8 +13,12 @@ setwd("C:/Users/Ashrith Reddy/Google Drive/time_tracker_logs")
 file_names = dir(pattern = ".txt")
 
 # Iterate over files to collect/collate results
-# Empty dataframe ot collect final_results
-final_results = data.frame(stringsAsFactors = F)
+# Empty dataframe to collect wasted hours at daily level
+daily_wasted_hours = data.frame(
+  calendar_date = character(0),
+  wasted_time_hours = numeric(0),
+  stringsAsFactors = F)
+
 for(file in file_names){
   
   # Each line of the file to be a row in data.frame 
@@ -33,15 +39,12 @@ for(file in file_names){
     `*`(15/60)
   
   # Collect one day's productivity into final dataframe
-  one_day_productivity = data.frame(calendar_date = stringr::str_replace(file, ".txt",""), 
-                                    wasted_time_hours, 
-                                    stringsAsFactors = F)
-  final_results = final_results %>% rbind(one_day_productivity)
+  daily_wasted_hours = daily_wasted_hours %>% add_row(calendar_date = stringr::str_replace(file, ".txt",""), 
+                                            wasted_time_hours = wasted_time_hours)
 }
 
 # Format and write final collated dataset
-final_results %>% 
+daily_wasted_hours %>% 
   arrange(desc(calendar_date)) %>% 
-  # mutate(calendar_date = as.Date(calendar_date)) %>% 
   # mutate(week_id = lubridate::week(calendar_date)) %>% 
-  openxlsx::write.xlsx("final_results.xlsx")
+  openxlsx::write.xlsx("daily_wasted_hours.xlsx")
