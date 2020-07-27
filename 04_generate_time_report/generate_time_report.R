@@ -47,33 +47,31 @@ all_log_files = all_log_files %>%
 
 all_log_files_day_level = all_log_files %>% 
   group_by(calendar_date, week_id, day_of_week) %>% 
-  summarise(wasted_hours = 0.25*sum(grepl(task, pattern = "wasted")))
+  summarise(wasted_hours = 0.25*sum(grepl(task, pattern = "wasted"))) %>% 
+  arrange(desc(calendar_date))
 # all_log_files_day_level %>%
 #   openxlsx::write.xlsx("time_tracking_log.xlsx", sheetName = "day_level", append = T)
 
 all_log_files_task_level = all_log_files %>% 
   group_by(task) %>% 
-  summarise(wasted_hours = 0.25*sum(grepl(task, pattern = "wasted")))
+  summarise(wasted_hours = 0.25*sum(grepl(task, pattern = "wasted"))) %>% 
+  arrange(desc(wasted_hours))
 # all_log_files_task_level %>%
 #   openxlsx::write.xlsx("time_tracking_log.xlsx", sheetName = "task_level", append = T)
-
-
-
 
 file.remove("time_tracking_log.xlsx")
 workbook <- openxlsx::createWorkbook("time_tracking_log.xlsx")
 
-openxlsx::addWorksheet(workbook, "all_log_files")                  # Add a new empty sheet for this particular colum
-openxlsx::setColWidths(workbook, sheet = 1, cols = 1:5, widths = "auto")
-openxlsx::writeData(workbook, 1, all_log_files)                  # Write frequency table to workbook at ith position
-
+openxlsx::addWorksheet(workbook, "all_log_files_day_level")                  # Add a new empty sheet for this particular colum
+openxlsx::setColWidths(workbook, sheet = 1, cols = 1:6, widths = "auto")
+openxlsx::writeData(workbook, 1, all_log_files_day_level)                  # Write frequency table to workbook at ith position
 
 openxlsx::addWorksheet(workbook, "all_log_files_task_level")                  # Add a new empty sheet for this particular colum
-openxlsx::setColWidths(workbook, sheet = 2, cols = 1:5, widths = "auto")
+openxlsx::setColWidths(workbook, sheet = 2, cols = 1:6, widths = "auto")
 openxlsx::writeData(workbook, 2, all_log_files_task_level)                  # Write frequency table to workbook at ith position
 
-openxlsx::addWorksheet(workbook, "all_log_files_day_level")                  # Add a new empty sheet for this particular colum
-openxlsx::setColWidths(workbook, sheet = 3, cols = 1:5, widths = "auto")
-openxlsx::writeData(workbook, 3, all_log_files_day_level)                  # Write frequency table to workbook at ith position
+openxlsx::addWorksheet(workbook, "all_log_files")                  # Add a new empty sheet for this particular colum
+openxlsx::setColWidths(workbook, sheet = 3, cols = 1:6, widths = "auto")
+openxlsx::writeData(workbook, 3, all_log_files)                  # Write frequency table to workbook at ith position
 
 openxlsx::saveWorkbook(workbook, file = "time_tracking_log.xlsx")             # Write final excel and unmount it from R

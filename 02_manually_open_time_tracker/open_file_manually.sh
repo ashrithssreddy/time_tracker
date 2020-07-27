@@ -15,7 +15,7 @@ else
 	
 	# Open wasted hour results from previous day
 	start .
-	start "daily_wasted_hours.xlsx"
+	start "time_tracking_log.xlsx"
 fi
 
 # Stray codes below - Please ignore
